@@ -1,8 +1,6 @@
 const calcuateSWFDueDate = (semesterStartDate) => {
   const semesterStart = new Date(semesterStartDate);
-  console.log(semesterStart);
   const semesterStartMonth = semesterStart.getMonth() + 1;
-  console.log(semesterStartMonth);
   const academicYear = semesterStart.getFullYear();
   const chiristmasDay = new Date(academicYear - 1 + "-12-25");
   const newYearDay = new Date(academicYear + "-01-01");
@@ -110,6 +108,16 @@ const calcuateSWFDueDate = (semesterStartDate) => {
     let summerVacationEndDate = new Date(
       semesterStart.getTime() - (2 * 7 + 1) * 24 * 60 * 60 * 1000
     ); // subtract 2 weeks (10 weekdays) and 1 day for Labour day, Labour day is a Monday
+    const summerVacationEndDateDayOfWeek = summerVacationEndDate.getUTCDay();
+    if (summerVacationEndDateDayOfWeek === 0) {
+      summerVacationEndDate = new Date(
+        summerVacationEndDate.getTime() - 2 * 24 * 60 * 60 * 1000
+      );
+    } else if (summerVacationEndDateDayOfWeek === 6) {
+      summerVacationEndDate = new Date(
+        summerVacationEndDate.getTime() - 1 * 24 * 60 * 60 * 1000
+      );
+    }
 
     let summerVacationStartDate = new Date(
       summerVacationEndDate.getTime() - (43 + 9 * 2 + 2) * 24 * 60 * 60 * 1000
@@ -123,7 +131,6 @@ const calcuateSWFDueDate = (semesterStartDate) => {
     if (swfDueDate.getTime() < victoriaDay.getTime()) {
       swfDueDate = new Date(swfDueDate.getTime() - 1 * 24 * 60 * 60 * 1000);
       const dayOfWeek = swfDueDate.getUTCDay();
-      console.log(dayOfWeek);
       // check if this date is On Saturday or Sunday. If so, subtract 2 days (1 weekend)
       // then the due date is 1 day before this date
       if (dayOfWeek === 0 || dayOfWeek === 6) {
