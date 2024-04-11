@@ -1,6 +1,6 @@
 const calcuateSWFDueDate = (semesterStartDate) => {
   const semesterStart = new Date(semesterStartDate);
-  const semesterStartMonth = semesterStart.getMonth() + 1;
+  const semesterStartMonth = semesterStart.getUTCMonth() + 1;
   const academicYear = semesterStart.getFullYear();
   const chiristmasDay = new Date(academicYear - 1 + "-12-25");
   const newYearDay = new Date(academicYear + "-01-01");
